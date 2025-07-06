@@ -1,0 +1,25 @@
+@startuml
+' Внешние сущности
+actor "Пользователь" as Customer
+database "База данных заказов" as OrdersDB
+rectangle "Платежная система" as Payment #lightyellow
+
+' Основной процесс (разбивается на подпроцессы)
+rectangle "Система обработки заказов" as OPS #lightblue
+rectangle "Валидация заказа" as Validation #lightgreen
+rectangle "Проверка наличия товара" as Inventory #orange
+rectangle "Обработка платежа" as PaymentProc #pink
+rectangle "Подтверждение заказа" as Confirmation #lightblue
+
+' Потоки данных
+Customer --> OPS : Отправляет заказ
+OPS --> Validation : Проводит валидацию заказа
+Validation --> Inventory : Проверяет наличие товара
+Validation --> PaymentProc : Отправляет запрос на оплату
+PaymentProc --> Payment : Обрабатывает платеж
+Payment --> PaymentProc : Подтверждение платежа
+Inventory --> OrdersDB : Обновляет складские запасы
+PaymentProc --> OrdersDB : Обновляет статус платежа
+OrdersDB --> Confirmation : Извлекает данные заказа
+Confirmation --> Customer : Отправляет подтверждение заказа
+@enduml

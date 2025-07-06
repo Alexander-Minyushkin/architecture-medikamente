@@ -1,0 +1,19 @@
+@startuml
+
+title Потоки Данных при Регистрации пациента
+
+
+actor "Сотрудник ресепшена" as Administrator
+actor "Пациент" as Patient #gray
+
+
+'rectangle "Система обработки заказов" as OPS #lightblue
+rectangle "Excel-файл со списком пациентов" as Excel
+rectangle "Файлы пациента в разных форматах" as Folder
+'rectangle "Платежная система" as Payment #lightyellow
+
+Patient --> Administrator : Заявка на регистрацию и личные данные
+Administrator --> Excel: Проверка и сохранение личных данных
+Administrator --> Folder: Cохранение файлов
+
+@enduml
