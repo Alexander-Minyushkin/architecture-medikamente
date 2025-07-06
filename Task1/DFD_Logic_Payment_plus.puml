@@ -1,0 +1,27 @@
+@startuml
+
+title Потоки Данных при Платежах
+
+
+
+actor "Бухгалтер" as Bookkeeper
+actor "Сотрудник склада" as Warehouse_keeper
+actor "Кассир" as Cassier
+actor "Пациент" as Patient #gray
+
+
+'rectangle "Система обработки заказов" as OPS #lightblue
+rectangle "Контрольно-кассовая машина\n\nШифрование, хэширование, двухфакторная аутентификация, контроль доступа" as KKM
+rectangle "1C Бухгалтерия\n\nШифрование, хэширование, двухфакторная аутентификация, контроль доступа" as 1c_bookkeeper
+rectangle "1C Торговля и склад\n\nШифрование, хэширование, двухфакторная аутентификация, контроль доступа" as 1c_warehouse
+
+'rectangle "Платежная система" as Payment #lightyellow
+
+Patient --> Cassier : Оплата за медицинские услуги
+Cassier --> KKM: Сумма и наименование платежа
+KKM --> 1c_bookkeeper : Информация о принятии денежных средств
+Bookkeeper --> 1c_bookkeeper : Процессинг платежей
+1c_bookkeeper <--> 1c_warehouse: Внутриплатформенный обмен данными
+Warehouse_keeper --> 1c_warehouse: Учет ТМЦ
+
+@enduml

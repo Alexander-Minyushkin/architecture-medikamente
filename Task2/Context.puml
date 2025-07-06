@@ -1,0 +1,48 @@
+@startuml
+title Медикаменте Финальное состояние. Диаграмма Контекста
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Person(Doctor, "Специалист-медик", "") 
+Person(Administrator, "Сотрудник ресепшена", "") 
+Person(Bookkeeper, "Бухгалтер", "") 
+Person(Warehouse_keeper, "Сотрудник склада", "") 
+Person(Cassier, "Кассир", "") 
+Person_Ext(Patient, "Пациент", "")  
+Person_Ext(Lab, "Сотрудник Лаборатории", "")  
+
+
+System_Boundary(MainSystem, "Медикаменте", ""){
+    System(portal, "Портал")
+    System(moblie, "Мобильное приложение")
+    System(KeyCloack, "KeyCloack")
+    System(crm, "CRM")
+    System(crm_1c, "1C")
+    System(analytic, "ELK", "Обезличеные данные о посещении, записях и оплате.")
+}
+
+
+
+
+Rel(Patient, portal, "")
+Rel(Patient, moblie,"")
+
+
+Rel(Doctor, crm, "")
+Rel(Administrator, crm, "")
+Rel(Bookkeeper,crm_1c, "")
+Rel(Lab, crm, "")
+
+Rel(Warehouse_keeper, crm_1c, "")
+Rel(Cassier, crm_1c, "")
+
+
+Rel(crm, KeyCloack, "")
+Rel(portal, KeyCloack, "")
+Rel(moblie, KeyCloack, "")
+Rel(crm_1c, analytic,"")
+Rel(crm, analytic,"")
+
+@enduml

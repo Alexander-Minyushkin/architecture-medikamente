@@ -1,0 +1,26 @@
+@startuml
+
+title Контекст Диаграммы Потоков Данных
+
+actor "Специалист-медик" as Doctor
+actor "Сотрудник ресепшена" as Administrator
+actor "Бухгалтер" as Bookkeeper
+actor "Сотрудник склада" as Warehouse_keeper
+actor "Кассир" as Cassier
+actor "Пациент" as Patient #gray
+actor "Сотрудник Лаборатории" as Lab #gray
+
+
+'rectangle "Система обработки заказов" as OPS #lightblue
+rectangle "Хранилище файлов Медикаменте" as FileStorage
+'rectangle "Платежная система" as Payment #lightyellow
+
+Patient --> Cassier : Оплата за медицинские услуги
+Patient --> Administrator : Звонок или личное общение
+Doctor --> FileStorage: Просмотр и редактирование своего журнала
+Administrator --> FileStorage: Регистрация и Запись пациента
+Bookkeeper --> FileStorage: Процессинг платежей
+Warehouse_keeper --> FileStorage: Учет ТМЦ
+Cassier --> FileStorage: Принятие оплаты
+Lab --> FileStorage: Результаты анализов
+@enduml

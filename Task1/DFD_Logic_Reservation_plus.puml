@@ -1,0 +1,20 @@
+@startuml
+
+title Потоки Данных при Записи пациента
+
+
+actor "Специалист-медик" as Doctor
+actor "Сотрудник ресепшена" as Administrator
+actor "Пациент" as Patient #gray
+
+
+'rectangle "Система обработки заказов" as OPS #lightblue
+rectangle "Excel-файл: журнал, где регистрируют запись\nпациентов к одному специалисту\n\nШифрование, обфускация, контроль доступа" as Excel
+
+'rectangle "Платежная система" as Payment #lightyellow
+
+Patient --> Administrator : Заявка на запись к специалисту
+Administrator --> Excel: Запись пациента к специалисту
+Doctor --> Excel: Просмотр и редактирование своего журнала
+
+@enduml

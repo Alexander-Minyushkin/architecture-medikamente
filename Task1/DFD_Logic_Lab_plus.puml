@@ -1,0 +1,20 @@
+@startuml
+
+title Потоки Данных для Лабораторных исследований
+
+
+
+actor "Сотрудник Лаборатории" as Lab #gray
+actor "Специалист-медик" as Doctor
+
+
+'rectangle "Система обработки заказов" as OPS #lightblue
+rectangle "Реестр анализов за день\nExcel file\n\nШифрование, обфускация, контроль доступа" as  RegistryByDate
+
+
+'rectangle "Платежная система" as Payment #lightyellow
+
+Lab --> RegistryByDate : Сохранение результатов
+Doctor --> RegistryByDate: Просмотр результатов
+
+@enduml
